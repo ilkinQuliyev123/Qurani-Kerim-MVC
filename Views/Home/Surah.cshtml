@@ -1,0 +1,26 @@
+@model Surah
+@{ ViewData["Title"] = $"{Model.Name} — Qurani-Kərim"; }
+@section Head {
+<link rel="stylesheet" href="~/css/surah.css">
+}
+<main id="surahPage" data-n="@Model.Id" data-count="@Model.AyahCount">
+  <section class="sh">
+    <div class="sh__no" id="sNo">@Model.Id</div>
+    <h1 id="sName">@Model.Name</h1>
+    <p><span id="sCount">@Model.AyahCount</span> <span data-i18n="ayahs"></span></p>
+    <p class="sh__bism" id="bism" lang="ar" hidden="@(Model.Id is 1 or 9)">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ<small data-i18n="bismillah"></small></p>
+  </section>
+
+  <section id="ayahList"></section>
+  <div id="sentinel"><button id="moreBtn" class="btn more" data-i18n="more"></button></div>
+
+  <nav class="snav">
+    @if (Model.Id > 1) { <a id="prevS" class="btn" href="/Surah/@(Model.Id - 1)" data-i18n="prev"></a> }
+    @if (Model.Id < 114) { <a id="nextS" class="btn" href="/Surah/@(Model.Id + 1)" data-i18n="next"></a> }
+  </nav>
+</main>
+
+@section Scripts {
+<script src="~/js/ayah.js"></script>
+<script src="~/js/surah.js"></script>
+}

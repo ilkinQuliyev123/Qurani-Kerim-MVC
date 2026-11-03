@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="az" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Qurani-Kərim</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/modal.css">
+<link rel="stylesheet" href="css/surah.css"> <!-- .none üçün -->
+<link rel="stylesheet" href="css/user.css"> <!-- .field, .err üçün -->
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<!-- HEADER: index.html-dəki <header> blokunu kopyala -->
+<header class="header">
+  <div class="header__in">
+    <a href="index.html" class="logo"><b>ق</b> Qurani-Kərim</a>
+
+    <nav class="nav">
+      <button id="surahBtn" data-i18n="surahs">Surələr</button> <!-- Part 2: modal -->
+      <a href="wishlist.html" data-i18n="wishlist">Bəyəndiklərim</a>
+      <a href="notes.html" data-i18n="notes">Qeydlərim</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+
+    <form class="search" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" id="q" data-i18n-ph="search" placeholder="Axtar: 3:2 və ya söz" aria-label="Search">
+    </form>
+
+    <div class="tools">
+      <select id="lang" class="select" aria-label="Language">
+        <option value="az">AZ</option><option value="en">EN</option><option value="ru">RU</option><option value="tr">TR</option>
+      </select>
+      <button id="themeBtn" class="icon-btn" aria-label="Theme">
+        <svg class="i-sun" width="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="i-moon" width="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a href="login.html" class="btn" data-i18n="login">Daxil ol</a>
+      <a href="register.html" class="btn btn--solid" data-i18n="register">Qeydiyyat</a>
+    </div>
+  </div>
+</header>
+
+<!-- MODAL: modal.html-dəki <dialog> (surələr) blokunu kopyala -->
+<dialog id="surahModal" class="modal" aria-labelledby="surahTitle">
+  <div class="modal__box">
+    <header class="modal__head">
+      <h2 id="surahTitle" data-i18n="surahs">Surələr</h2>
+      <button class="icon-btn" id="surahClose" aria-label="Close">✕</button>
+    </header>
+    <input type="search" id="surahFilter" class="modal__filter" data-i18n-ph="filter" placeholder="Surə axtar">
+    <ol id="surahList" class="surahs"></ol>
+    <p id="surahEmpty" class="modal__empty" data-i18n="noSurah" hidden>Belə surə tapılmadı</p>
+  </div>
+</dialog>
+
+<div class="amain">
+  <div class="ahead"><h1>Admin panel</h1><small>Ayələrin redaktəsi</small></div>
+
+  <div class="tools2">
+    <select id="surahSel" aria-label="Surə"></select>
+    <input id="aq" type="search" placeholder="Bu surədə axtar: 3:2, ərəbcə və ya tərcümədən söz" autocomplete="off">
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>Ayə</th><th>Ərəbcə</th><th>Azərbaycanca</th><th></th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <p id="none" class="none" hidden>Heç nə tapılmadı</p>
+  <div class="pager"><button class="btn" id="prev">‹</button><span id="pinfo"></span><button class="btn" id="next">›</button></div>
+</div>
+
+<dialog id="editor" class="editor">
+  <form method="dialog" onsubmit="return false">
+    <header><h2 id="eTitle"></h2><button type="button" class="icon-btn" id="eCancel" aria-label="Bağla">✕</button></header>
+    <div class="body">
+      <div><label class="l" for="fAr">1. Ərəbcə orijinal mətn</label><textarea id="fAr" class="field"></textarea></div>
+
+      <div class="tabs" id="tabs"><button type="button" data-l="az">AZ</button><button type="button" data-l="en">EN</button><button type="button" data-l="ru">RU</button><button type="button" data-l="tr">TR</button></div>
+
+      <div>
+        <label class="l">2. Söz-söz cədvəl (seçilmiş dil üçün mənalar)</label>
+        <table class="wt"><thead><tr><th>Ərəbcə</th><th>Latınca oxunuş</th><th>Mənası</th><th></th></tr></thead><tbody id="fWords"></tbody></table>
+        <button type="button" class="btn" id="addWord">+ Söz əlavə et</button>
+      </div>
+
+      <div><label class="l" for="fTr">3. Tərcümə (seçilmiş dil)</label><textarea id="fTr" class="field"></textarea></div>
+    </div>
+    <footer><span id="eErr" class="err" role="alert" style="margin-right:auto"></span>
+      <button type="button" class="btn" id="eCancel2" onclick="this.closest('dialog').close()">Ləğv et</button>
+      <button type="button" class="btn btn--solid" id="eSave">Yadda saxla</button></footer>
+  </form>
+</dialog>
+<div id="toast" class="toast" role="status"></div>
+
+<!-- FOOTER: index.html-dəki <footer> blokunu kopyala -->
+<footer class="footer">
+  <span class="ar" lang="ar">بِسْمِ اللَّهِ</span>
+  <span data-i18n="footer">Qurani-Kərim — oxu, düşün, yadda saxla</span>
+</footer>
+
+<script src="js/main.js"></script><script src="js/surahs.js"></script><script src="js/admin.js"></script>
+</body>
+</html>

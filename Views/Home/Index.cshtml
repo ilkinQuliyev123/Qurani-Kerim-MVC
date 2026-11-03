@@ -1,0 +1,36 @@
+@model AyahDto?
+@{ ViewData["Title"] = "Qurani-Kərim"; }
+@section Head { <link rel="stylesheet" href="~/css/surah.css"> }
+<main>
+  <h1 class="ptitle" data-i18n="daily">Günün ayəsi</h1>
+  @if (Model == null) {
+    <p class="none">Baza boşdur.</p>
+  } else {
+    <article class="ayah" id="a@(Model.Num)" data-id="@Model.Id">
+      <div class="ayah__bar">
+        <a class="ayah__no" href="/Surah/@Model.Surah#a@(Model.Num)">@Model.Ref</a>
+        <div class="ayah__acts">
+          <button class="icon-btn cm" aria-label="Comments">💬 <small>@Model.Comments</small></button>
+          <button class="icon-btn fav @(Model.Fav ? "on" : "")" aria-label="Wishlist">♥</button>
+          <button class="icon-btn" aria-label="Note">✎</button>
+        </div>
+      </div>
+      <p class="ayah__ar" lang="ar">@Model.Arabic</p>
+      @if (Model.Words.Count > 0) {
+        <table class="words">
+          <thead><tr><th data-i18n="word"></th><th data-i18n="latin"></th><th data-i18n="meaning"></th></tr></thead>
+          <tbody>@foreach (var w in Model.Words) { <tr><td lang="ar">@w.Ar</td><td>@w.Lat</td><td>@w.Mean</td></tr> }</tbody>
+        </table>
+      }
+      <p class="ayah__tr">@Model.Translation</p>
+    </article>
+  }
+  <p style="text-align:center;margin-top:24px"><button class="btn btn--solid" onclick="$('#surahBtn').click()" data-i18n="browse">Surələrə bax</button></p>
+</main>
+@section Scripts {
+<script src="~/js/ayah.js" asp-append-version="true"></script>
+<script>
+  // dil dəyişəndə günün ayəsi seçilmiş dildə yenidən yüklənsin (server cookie-dən oxuyur)
+  $('#lang').addEventListener('change',()=>location.reload());
+</script>
+}

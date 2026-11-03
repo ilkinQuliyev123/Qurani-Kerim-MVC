@@ -1,0 +1,20 @@
+@{ ViewData["Title"] = "Bəyəndiklərim — Qurani-Kərim"; }
+@section Head {
+<link rel="stylesheet" href="~/css/surah.css">
+<link rel="stylesheet" href="~/css/user.css">
+}
+<main>
+  <h1 class="ptitle" data-i18n="wTitle"></h1>
+  <section id="ayahList"></section>
+  <div id="sentinel"><button id="moreBtn" class="btn more" data-i18n="more"></button></div>
+  <div id="empty" class="empty" hidden>
+    <h2 data-i18n="noWish"></h2>
+    <p data-i18n="noWishHint"></p>
+    <button class="btn btn--solid" onclick="$('#surahBtn').click()" data-i18n="browse"></button>
+  </div>
+</main>
+@section Scripts {
+<script src="~/js/ayah.js"></script>
+<script src="~/js/user.js"></script>
+<script src="~/js/wishlist.js"></script>
+}

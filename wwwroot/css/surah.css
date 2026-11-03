@@ -1,0 +1,19 @@
+/* ===== PART 3: surə və axtarış səhifələri (style.css və modal.css-dən sonra) ===== */
+.sh{text-align:center;padding:1.5rem 0 2.5rem}
+.sh__no{width:64px;height:64px;margin:0 auto 1rem;display:grid;place-items:center;font:600 1.4rem var(--f-head);color:var(--gold);
+  border:1px solid var(--gold);border-radius:50%;box-shadow:0 0 30px rgba(var(--glow),.35),inset 0 0 14px rgba(var(--glow),.2)}
+.sh h1{font:600 clamp(2rem,5vw,3rem)/1.2 var(--f-head)}
+.sh p{color:var(--muted);margin-top:.3rem}
+.sh__bism{font:clamp(1.6rem,4vw,2.2rem)/2 var(--f-ar);color:var(--gold);margin-top:1.2rem}
+.sh__bism small{display:block;font:.85rem var(--f-ui);color:var(--muted)}
+.sh::after{content:"";display:block;width:min(260px,60%);height:1px;margin:1.8rem auto 0;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 14px rgba(var(--glow),.8)}
+
+.ayah__no{transition:.3s}.ayah__no:hover{background:var(--gold);color:var(--on-gold)}
+.ayah:target{border-color:var(--gold);box-shadow:0 0 40px rgba(var(--glow),.25)}
+
+.snav{display:flex;justify-content:space-between;gap:1rem;margin:2.5rem 0 1rem}
+.more{display:block;margin:1rem auto}
+.none{text-align:center;color:var(--muted);padding:3rem 1rem}
+.rh{font:600 1.6rem var(--f-head);margin-bottom:1.5rem}
+.rh span{color:var(--gold)}

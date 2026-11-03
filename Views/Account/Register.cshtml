@@ -1,0 +1,26 @@
+@{ ViewData["Title"] = "Qeydiyyat — Qurani-Kərim"; }
+@section Head {
+<link rel="stylesheet" href="~/css/auth.css">
+}
+<main class="authwrap">
+  <section class="ayah auth">
+    <div class="auth__mark" lang="ar">ق</div>
+    <h1 data-i18n="regTitle"></h1>
+    <form id="authForm" novalidate>
+      <label class="fld"><span data-i18n="username"></span>
+        <input type="text" name="username" autocomplete="username"><small class="err" data-err="username" role="alert"></small></label>
+      <label class="fld"><span data-i18n="email"></span>
+        <input type="email" name="email" autocomplete="email"><small class="err" data-err="email" role="alert"></small></label>
+      <label class="fld"><span data-i18n="password"></span>
+        <div class="pw"><input type="password" name="password" autocomplete="new-password"><button type="button" class="pw__eye" data-i18n="show"></button></div>
+        <div id="strength"></div><small class="err" data-err="password" role="alert"></small></label>
+      <label class="fld"><span data-i18n="confirm"></span>
+        <input type="password" name="confirm" autocomplete="new-password"><small class="err" data-err="confirm" role="alert"></small></label>
+      <button class="btn btn--solid" type="submit" data-i18n="register"></button>
+    </form>
+    <p class="auth__alt"><span data-i18n="haveAcc"></span><a href="/Account/Login" data-i18n="login"></a></p>
+  </section>
+</main>
+@section Scripts {
+<script src="~/js/auth.js"></script>
+}

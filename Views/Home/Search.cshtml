@@ -1,0 +1,15 @@
+@{ ViewData["Title"] = "Axtarış — Qurani-Kərim"; }
+@section Head {
+<link rel="stylesheet" href="~/css/surah.css">
+}
+<main>
+  <h1 class="rh"><span data-i18n="results"></span>: <span id="term">@ViewBag.Q</span> <small id="total"></small></h1>
+  <section id="ayahList"></section>
+  <div id="sentinel"><button id="moreBtn" class="btn more" data-i18n="more"></button></div>
+  <p id="none" class="none" data-i18n="none" hidden></p>
+</main>
+
+@section Scripts {
+<script src="~/js/ayah.js"></script>
+<script src="~/js/search.js"></script>
+}

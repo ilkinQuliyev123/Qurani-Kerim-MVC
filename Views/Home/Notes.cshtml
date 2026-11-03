@@ -1,0 +1,33 @@
+@{ ViewData["Title"] = "Qeydlərim — Qurani-Kərim"; }
+@section Head {
+<link rel="stylesheet" href="~/css/surah.css">
+<link rel="stylesheet" href="~/css/user.css">
+}
+<main>
+  <h1 class="ptitle" data-i18n="nTitle"></h1>
+
+  <form id="noteForm" class="nform" novalidate>
+    <input name="ref" class="field" data-i18n-ph="refPh" placeholder="Ayə: 3:2" autocomplete="off">
+    <textarea name="text" class="field" data-i18n-ph="notePh" placeholder="Bu ayə sənə nə hiss etdirdi?" maxlength="2000"></textarea>
+    <div class="nform__row">
+      <button class="btn btn--solid" type="submit" data-i18n="save"></button>
+      <span id="formErr" class="err" role="alert"></span>
+    </div>
+  </form>
+
+  <section id="noteList"></section>
+  <div id="sentinel"><button id="moreBtn" class="btn more" data-i18n="more"></button></div>
+  <p id="noNotes" class="none" data-i18n="noNotes" hidden></p>
+</main>
+
+<dialog id="confirm" class="modal confirm">
+  <div class="modal__box">
+    <h2 data-i18n="delQ"></h2><p data-i18n="delHint"></p>
+    <div class="row"><button id="no" class="btn" data-i18n="cancel"></button><button id="yes" class="btn btn--solid" data-i18n="del"></button></div>
+  </div>
+</dialog>
+@section Scripts {
+<script src="~/js/ayah.js"></script>
+<script src="~/js/user.js"></script>
+<script src="~/js/notes.js"></script>
+}

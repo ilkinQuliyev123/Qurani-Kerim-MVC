@@ -1,0 +1,23 @@
+@{ ViewData["Title"] = "Daxil ol — Qurani-Kərim"; }
+@section Head {
+<link rel="stylesheet" href="~/css/auth.css">
+}
+<main class="authwrap">
+  <section class="ayah auth">
+    <div class="auth__mark" lang="ar">ق</div>
+    <h1 data-i18n="loginTitle"></h1>
+    <form id="authForm" novalidate>
+      <label class="fld"><span data-i18n="email"></span>
+        <input type="email" name="email" autocomplete="email"><small class="err" data-err="email" role="alert"></small></label>
+      <label class="fld"><span data-i18n="password"></span>
+        <div class="pw"><input type="password" name="password" autocomplete="current-password"><button type="button" class="pw__eye" data-i18n="show"></button></div>
+        <small class="err" data-err="password" role="alert"></small></label>
+      <label class="chk"><input type="checkbox" name="remember"><span data-i18n="remember"></span></label>
+      <button class="btn btn--solid" type="submit" data-i18n="login"></button>
+    </form>
+    <p class="auth__alt"><span data-i18n="noAcc"></span><a href="/Account/Register" data-i18n="register"></a></p>
+  </section>
+</main>
+@section Scripts {
+<script src="~/js/auth.js"></script>
+}

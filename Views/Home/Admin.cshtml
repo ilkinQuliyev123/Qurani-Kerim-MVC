@@ -1,0 +1,51 @@
+@{ ViewData["Title"] = "Admin — Qurani-Kərim"; }
+@section Head {
+<link rel="stylesheet" href="~/css/surah.css">
+<link rel="stylesheet" href="~/css/user.css">
+<link rel="stylesheet" href="~/css/admin.css">
+}
+<div class="amain">
+  <div class="ahead"><h1>Admin panel</h1><small>Ayələrin redaktəsi</small></div>
+
+  <div class="tools2">
+    <select id="surahSel" aria-label="Surə"></select>
+    <input id="aq" type="search" placeholder="Bu surədə axtar: 3:2, ərəbcə və ya tərcümədən söz" autocomplete="off">
+    <button class="btn btn--solid" id="addAyah" type="button">+ Yeni ayə</button>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>Ayə</th><th>Ərəbcə</th><th>Azərbaycanca</th><th>Türkcə (Ali Bulaç)</th><th></th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <p id="none" class="none" hidden>Heç nə tapılmadı</p>
+  <div class="pager"><button class="btn" id="prev">‹</button><span id="pinfo"></span><button class="btn" id="next">›</button></div>
+</div>
+
+<dialog id="editor" class="editor">
+  <form method="dialog" onsubmit="return false">
+    <header><h2 id="eTitle"></h2><button type="button" class="icon-btn" id="eCancel" aria-label="Bağla">✕</button></header>
+    <div class="body">
+      <div id="numRow" hidden><label class="l" for="fNum">Ayə nömrəsi</label><input id="fNum" type="number" min="1" class="field"></div>
+      <div><label class="l" for="fAr">1. Ərəbcə orijinal mətn</label><textarea id="fAr" class="field"></textarea></div>
+
+      <div class="tabs" id="tabs"><button type="button" data-l="az">AZ</button><button type="button" data-l="en">EN</button><button type="button" data-l="ru">RU</button><button type="button" data-l="tr">TR</button></div>
+
+      <div>
+        <label class="l">2. Söz-söz cədvəl (seçilmiş dil üçün mənalar)</label>
+        <table class="wt"><thead><tr><th>Ərəbcə</th><th>Latınca oxunuş</th><th>Mənası</th><th></th></tr></thead><tbody id="fWords"></tbody></table>
+        <button type="button" class="btn" id="addWord">+ Söz əlavə et</button>
+      </div>
+
+      <div><label class="l" for="fTr">3. Tərcümə (seçilmiş dil)</label><textarea id="fTr" class="field"></textarea></div>
+    </div>
+    <footer><span id="eErr" class="err" role="alert" style="margin-right:auto"></span>
+      <button type="button" class="btn" id="eDel">Sil</button>
+      <button type="button" class="btn" id="eCancel2" onclick="this.closest('dialog').close()">Ləğv et</button>
+      <button type="button" class="btn btn--solid" id="eSave">Yadda saxla</button></footer>
+  </form>
+</dialog>
+<div id="toast" class="toast" role="status"></div>
+
+@section Scripts {
+<script src="~/js/admin.js"></script>
+}
