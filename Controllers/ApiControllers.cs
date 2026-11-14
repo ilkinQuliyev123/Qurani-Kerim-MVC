@@ -14,6 +14,12 @@ public class QuranApiController(QuranService quran, UserService users) : Control
     [HttpGet("surahs/{n:int}/ayahs")]
     public Task<List<AyahDto>> Ayahs(int n, int from = 1, int to = 20, string? lang = null) => quran.Range(n, from, to, lang ?? Request.Lang(), User.Id());
 
+    [HttpGet("surahs/{n:int}/about")]
+    public async Task<IActionResult> About(int n) => await quran.About(n) is { } a ? Ok(a) : NotFound();
+
+    [HttpGet("surahs/{n:int}/ayahs/{a:int}/commentaries")]
+    public async Task<IActionResult> Commentaries(int n, int a) => await quran.Commentaries(n, a) is { } c ? Ok(c) : NotFound();
+
     [HttpGet("search")]
     public Task<PageDto<AyahDto>> Search(string q, string? lang = null, int offset = 0, int limit = 20) => quran.Search(q, lang ?? Request.Lang(), offset, limit, User.Id());
 

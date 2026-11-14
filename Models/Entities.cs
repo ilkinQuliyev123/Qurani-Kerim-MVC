@@ -7,6 +7,7 @@ public class Surah
     public int Id { get; set; }                       // 1..114
     [MaxLength(60)] public string Name { get; set; } = "";
     public int AyahCount { get; set; }
+    public string? About { get; set; }                // surə haqqında (WorkFlowy-dən)
     public List<Ayah> Ayahs { get; set; } = new();
 }
 
@@ -20,6 +21,18 @@ public class Ayah
     public string ArabicPlain { get; set; } = "";     // hərəkəsiz — axtarış üçün
     public List<AyahTranslation> Translations { get; set; } = new();
     public List<AyahWord> Words { get; set; } = new();
+    public List<AyahCommentary> Commentaries { get; set; } = new();
+}
+
+/// <summary>Ayəyə şərh/təfsir: Title = müəllif və ya mövzu (Diyanet, Mihr Vakfı...), Text = mətn.</summary>
+public class AyahCommentary
+{
+    public int Id { get; set; }
+    public int AyahId { get; set; }
+    public Ayah? Ayah { get; set; }
+    public int Order { get; set; }
+    [MaxLength(300)] public string Title { get; set; } = "";
+    public string Text { get; set; } = "";
 }
 
 public class AyahTranslation

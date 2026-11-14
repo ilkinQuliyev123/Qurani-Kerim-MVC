@@ -52,6 +52,36 @@ namespace QuranApp.Data.Migrations
                     b.ToTable("Ayahs");
                 });
 
+            modelBuilder.Entity("QuranApp.Models.AyahCommentary", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AyahId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AyahId", "Order");
+
+                    b.ToTable("Commentaries");
+                });
+
             modelBuilder.Entity("QuranApp.Models.AyahTranslation", b =>
                 {
                     b.Property<int>("Id")
@@ -212,6 +242,9 @@ namespace QuranApp.Data.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<string>("About")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("AyahCount")
                         .HasColumnType("int");
 
@@ -270,6 +303,17 @@ namespace QuranApp.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Surah");
+                });
+
+            modelBuilder.Entity("QuranApp.Models.AyahCommentary", b =>
+                {
+                    b.HasOne("QuranApp.Models.Ayah", "Ayah")
+                        .WithMany("Commentaries")
+                        .HasForeignKey("AyahId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ayah");
                 });
 
             modelBuilder.Entity("QuranApp.Models.AyahTranslation", b =>
@@ -345,6 +389,8 @@ namespace QuranApp.Data.Migrations
 
             modelBuilder.Entity("QuranApp.Models.Ayah", b =>
                 {
+                    b.Navigation("Commentaries");
+
                     b.Navigation("Translations");
 
                     b.Navigation("Words");

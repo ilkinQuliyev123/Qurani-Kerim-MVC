@@ -38,12 +38,43 @@ public static class Seeder
             await SeedWords(db);
         }
 
+        if (!await db.Commentaries.AnyAsync()) await SeedCommentary(db, root);
+
         // Admin hesabı: parol koda yazılmır — appsettings.Development.json və ya mühit dəyişəni (Admin__Password)
         var email = cfg["Admin:Email"]?.ToLowerInvariant();
         if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(cfg["Admin:Password"]) && !await db.Users.AnyAsync(u => u.Email == email))
         {
             db.Users.Add(new User { Name = "Admin", Email = email, PasswordHash = UserService.Hash(cfg["Admin:Password"]!), IsAdmin = true });
             await db.SaveChangesAsync();
+        }
+    }
+
+    record CItem(string t, string x);
+    record CAyah(int n, List<CItem> c);
+    record CSurah(int s, string? about, List<CAyah> ayahs);
+
+    /// Data/seed/commentary.json.gz (WorkFlowy OPML-dən çevrilib): surə haqqında + ayə şərhləri.
+    static async Task SeedCommentary(AppDbContext db, string root)
+    {
+        var path = Path.Combine(root, "Data", "seed", "commentary.json.gz");
+        if (!File.Exists(path)) return;
+        await using var fs = File.OpenRead(path);
+        await using var gz = new System.IO.Compression.GZipStream(fs, System.IO.Compression.CompressionMode.Decompress);
+        var data = await JsonSerializer.DeserializeAsync<List<CSurah>>(gz) ?? [];
+
+        var ids = await db.Ayahs.AsNoTracking().Select(a => new { a.Id, a.SurahId, a.Number }).ToDictionaryAsync(a => (a.SurahId, a.Number), a => a.Id);
+        db.ChangeTracker.AutoDetectChangesEnabled = false;
+        foreach (var s in data)
+        {
+            if (!string.IsNullOrWhiteSpace(s.about))
+                await db.Surahs.Where(x => x.Id == s.s).ExecuteUpdateAsync(u => u.SetProperty(x => x.About, s.about));
+            foreach (var a in s.ayahs)
+            {
+                if (!ids.TryGetValue((s.s, a.n), out var ayahId)) continue;
+                for (int i = 0; i < a.c.Count; i++)
+                    db.Commentaries.Add(new AyahCommentary { AyahId = ayahId, Order = i, Title = a.c[i].t.Length > 300 ? a.c[i].t[..300] : a.c[i].t, Text = a.c[i].x });
+            }
+            await db.SaveChangesAsync(); db.ChangeTracker.Clear();
         }
     }
 

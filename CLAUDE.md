@@ -23,6 +23,7 @@ Bu fayl Claude Code üçün layihə qaydalarını təyin edir. Hər sessiyanın 
 6. Məlumat silən, `git push --force`, `git reset --hard` və ya miqrasiya kimi geri dönməz əməliyyatlardan əvvəl təsdiq al.
 7. Dəyişikliklərdən sonra qısa xülasə yaz: nə dəyişdi, hansı fayllarda, build/test keçdimi.
 8. İcazə istəyəndə əmrin nə etdiyini azərbaycanca izah et.
+9. **Model bölgüsü (HƏMİŞƏ):** xırda işləri (kiçik düzəlişlər, ad dəyişmə, format, sadə data köçürmə, təkrarlanan sadə redaktələr) sadə AI modelə (`Agent` aləti, `model: "haiku"`) yazdır. Əsas funksionallıq və mürəkkəb məntiq (arxitektura, API, DB, servislər, təhlükəsizlik, import) əsas (güclü) modellə — özün və ya `model: "opus"`/`"sonnet"` ilə — yazılır. Xırda işi alt-agentə verəndə nəticəni yoxla.
 
 ## Kod üslubu
 - C#: PascalCase (sinif, metod), camelCase (lokal dəyişən). JS: camelCase.

@@ -9,6 +9,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> o) : DbContext(o)
     public DbSet<Ayah> Ayahs => Set<Ayah>();
     public DbSet<AyahTranslation> Translations => Set<AyahTranslation>();
     public DbSet<AyahWord> Words => Set<AyahWord>();
+    public DbSet<AyahCommentary> Commentaries => Set<AyahCommentary>();
     public DbSet<User> Users => Set<User>();
     public DbSet<Favorite> Favorites => Set<Favorite>();
     public DbSet<Note> Notes => Set<Note>();
@@ -19,6 +20,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> o) : DbContext(o)
         b.Entity<Surah>().Property(s => s.Id).ValueGeneratedNever();
         b.Entity<Ayah>().HasIndex(a => new { a.SurahId, a.Number }).IsUnique();
         b.Entity<AyahTranslation>().HasIndex(t => new { t.AyahId, t.Lang }).IsUnique();
+        b.Entity<AyahCommentary>().HasIndex(c => new { c.AyahId, c.Order });
         b.Entity<User>().HasIndex(u => u.Email).IsUnique();
         b.Entity<Favorite>().HasKey(f => new { f.UserId, f.AyahId });
         b.Entity<Note>().HasIndex(n => new { n.UserId, n.CreatedAt });

@@ -3,6 +3,8 @@ namespace QuranApp.Models;
 public record SurahDto(int N, string Name, int Count);
 public record WordDto(string Ar, string Lat, string Mean);
 public record AyahDto(int Id, int Surah, int Num, string Ref, string Arabic, string Translation, List<WordDto> Words, bool Fav, int Comments);
+public record CommentaryDto(string Title, string Text);
+public record SurahAboutDto(int N, string Name, string? About);
 public record PageDto<T>(List<T> Items, int Total);
 public record NoteDto(int Id, string Ref, string Arabic, string Text, DateTime Date);
 public record CommentDto(int Id, string User, string Text, DateTime Date, bool Mine);

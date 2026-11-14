@@ -6,6 +6,7 @@
 const api={
   ayahs:(surah,from,to,lang)=>http(`/api/surahs/${surah}/ayahs?from=${from}&to=${to}&lang=${lang}`),
   search:(q,lang,offset=0,limit=20)=>http(`/api/search?q=${encodeURIComponent(q)}&lang=${lang}&offset=${offset}&limit=${limit}`),
+  commentaries:(s,n)=>http(`/api/surahs/${s}/ayahs/${n}/commentaries`),
   comments:id=>http(`/api/ayahs/${id}/comments`),
   addComment:(id,text)=>http(`/api/ayahs/${id}/comments`,{method:'POST',body:{text}}),
   delComment:id=>http(`/api/comments/${id}`,{method:'DELETE'})
@@ -15,11 +16,12 @@ const api={
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function renderAyah(a,container){
   const el=document.createElement('article');
-  el.className='ayah'; el.id=`a${a.num}`; el.dataset.id=a.id;
+  el.className='ayah'; el.id=`a${a.num}`; el.dataset.id=a.id; el.dataset.surah=a.surah; el.dataset.num=a.num;
   el.innerHTML=`
     <div class="ayah__bar">
       <a class="ayah__no" href="/Surah/${a.surah}#a${a.num}">${a.ref}</a>
       <div class="ayah__acts">
+        <button class="icon-btn tf" aria-label="Commentary" title="Təfsir">📖</button>
         <button class="icon-btn cm" aria-label="Comments">💬 <small>${a.comments}</small></button>
         <button class="icon-btn fav${a.fav?' on':''}" aria-label="Wishlist">♥</button>
         <button class="icon-btn" aria-label="Note">✎</button>
@@ -55,6 +57,18 @@ Object.assign(I18N.az,{prev:'Əvvəlki surə',next:'Növbəti surə',more:'Daha 
 Object.assign(I18N.en,{prev:'Previous surah',next:'Next surah',more:'Load more verses',results:'Search results',none:'Nothing found. Try 3:2 or a word.',bismillah:'In the name of God, the Most Gracious, the Most Merciful'});
 Object.assign(I18N.ru,{prev:'Предыдущая сура',next:'Следующая сура',more:'Показать ещё',results:'Результаты поиска',none:'Ничего не найдено. Попробуйте 3:2 или слово.',bismillah:'Во имя Аллаха, Милостивого, Милосердного'});
 Object.assign(I18N.tr,{prev:'Önceki sure',next:'Sonraki sure',more:'Daha fazla ayet',results:'Arama sonuçları',none:'Bulunamadı. 3:2 veya bir kelime dene.',bismillah:'Rahman ve Rahim olan Allah’ın adıyla'});
+
+/* --- Təfsir / şərhlər (WorkFlowy-dən): 📖 düyməsi müəllif-müəllif açılan siyahı göstərir --- */
+document.addEventListener('click',async e=>{
+  const b=e.target.closest('.ayah .tf'); if(!b) return;
+  const card=b.closest('.ayah'); let box=$('.tafsir',card);
+  if(box){box.remove();return}
+  box=document.createElement('div'); box.className='tafsir'; box.textContent='…'; card.appendChild(box);
+  try{
+    const list=await api.commentaries(card.dataset.surah,card.dataset.num);
+    box.innerHTML=list.length?list.map(c=>`<details><summary>${esc(c.title||'—')}</summary><p>${esc(c.text)}</p></details>`).join(''):'<p class="none">—</p>';
+  }catch{box.remove()}
+});
 
 /* --- Şərhlər (SQL-də saxlanır): 💬 düyməsi kartın altında paneli açır --- */
 document.addEventListener('click',async e=>{

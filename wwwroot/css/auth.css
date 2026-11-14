@@ -21,3 +21,25 @@
 .auth__alt{text-align:center;margin-top:1.4rem;color:var(--muted);font-size:.95rem}
 .auth__alt a{color:var(--gold-soft);font-weight:700;margin-left:.3rem}
 .auth__alt a:hover{text-decoration:underline}
+
+/* ===== RESPONSIVE: tablet (≤1024px) ===== */
+@media(max-width:1024px){
+  .authwrap{min-height:calc(100dvh - 160px)}
+  .auth{padding:2rem 1.6rem}
+}
+
+/* ===== RESPONSIVE: phone (≤480px) ===== */
+@media(max-width:480px){
+  .authwrap{min-height:auto;padding:.5rem 0 1rem}
+  .auth{width:100%;padding:1.6rem 1.1rem}
+  .auth__mark{font-size:2.4rem}
+  .auth h1{font-size:1.5rem;margin-bottom:1.2rem}
+  .fld input[type=text],.fld input[type=email],.fld input[type=password]{min-height:44px;font-size:16px;padding:.7rem .9rem}
+  .pw input{padding-right:4.8rem!important}
+  .pw__eye{min-height:44px;right:.2rem;padding:0 .5rem;display:inline-flex;align-items:center}
+  .chk{min-height:44px}
+  .chk input{width:20px;height:20px}
+  .auth .btn{min-height:48px}
+  .auth__alt{font-size:.9rem}
+  .auth__alt a{min-height:44px;display:inline-flex;align-items:center}
+}

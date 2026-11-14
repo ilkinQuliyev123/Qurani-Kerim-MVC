@@ -11,5 +11,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Update="Data\seed\**" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Data\seed\commentary.json.gz" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

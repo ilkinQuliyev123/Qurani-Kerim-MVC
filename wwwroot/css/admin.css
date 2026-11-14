@@ -45,3 +45,39 @@
   opacity:0;pointer-events:none;transition:.4s;box-shadow:0 0 30px rgba(var(--glow),.6);z-index:100}
 .toast.on{opacity:1;translate:-50% 0}
 @media(max-width:640px){.tbl .tr{display:none}.wt input{padding:.4rem}}
+
+/* ===== RESPONSIVE: tablet (≤1024px) ===== */
+@media(max-width:1024px){
+  .amain{width:min(1100px,100% - 2.5rem);margin:1.5rem auto}
+  .tools2 select{max-width:220px}
+  .tbl th,.tbl td{padding:.6rem;overflow-wrap:anywhere}
+  .tbl .ar{min-width:160px}
+  .editor{max-width:560px}
+}
+
+/* ===== RESPONSIVE: phone (≤480px) ===== */
+@media(max-width:480px){
+  .amain{width:calc(100% - 1.5rem);margin:1rem auto}
+  .ahead h1{font-size:clamp(1.5rem,7vw,1.8rem)}
+  .tools2{position:static;padding:.7rem}
+  .tools2 select,.tools2 input{width:100%;max-width:none;min-width:0;min-height:44px;font-size:16px}
+  .tbl thead{display:none}
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl tr{padding:.6rem .8rem;border-bottom:1px solid var(--line)}
+  .tbl td{border:0;padding:.25rem 0}
+  .tbl .ar{min-width:0}
+  .pager{flex-wrap:wrap;gap:.6rem}
+  .editor{width:100%;max-width:none;height:100dvh;border-left:0}
+  .editor header,.editor footer{padding:.8rem 1rem}
+  .editor footer .btn{min-height:44px;flex:1}
+  .editor .body{padding:1rem}
+  .editor .field{font-size:16px}
+  #fAr{font-size:1.6rem}
+  .tabs{flex-wrap:wrap}
+  .tabs button{min-height:44px;padding:.4rem .9rem}
+  .wt thead{display:none}
+  .wt,.wt tbody,.wt tr,.wt td{display:block;width:100%}
+  .wt td{padding:.2rem 0}
+  .wt td:last-child{width:auto}
+  .wt input{min-height:44px;font-size:16px;padding:.55rem .7rem}
+}

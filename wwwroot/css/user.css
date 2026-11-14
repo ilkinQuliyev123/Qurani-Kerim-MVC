@@ -22,3 +22,31 @@ input.field{min-height:0;max-width:180px;font-family:var(--f-ui)}
 .confirm h2{font:600 1.4rem var(--f-head);color:var(--gold)}
 .confirm p{color:var(--muted);margin-bottom:1rem}
 .confirm .row{display:flex;gap:.8rem;justify-content:center}
+
+/* ===== RESPONSIVE: tablet (≤1024px) ===== */
+@media(max-width:1024px){
+  .ptitle{margin-bottom:1.5rem}
+  .nform{padding:1.2rem}
+  .note__text{font-size:1.05rem}
+}
+
+/* ===== RESPONSIVE: phone (≤480px) ===== */
+@media(max-width:480px){
+  .ptitle{font-size:clamp(1.6rem,8vw,2.1rem);margin-bottom:1.2rem}
+  .empty{padding:2.5rem 1rem}
+  .empty h2{font-size:1.2rem}
+  .nform{padding:1rem;gap:.7rem}
+  .field{font-size:16px;padding:.75rem .9rem}
+  .nform__row{gap:.7rem}
+  .note__ar{font-size:1.4rem}
+  .note__text{font-size:1rem;padding-left:.8rem}
+  .note__acts{flex-wrap:wrap}
+  .note__acts .btn{min-height:44px;padding:.45rem 1rem}
+  .cmts__f{flex-wrap:wrap}
+  .cmts__f textarea{flex:1 1 100%;min-width:0}
+  .cmts__f .btn{min-height:44px}
+  .cmt .icon-btn{width:44px;height:44px}
+  .confirm .modal__box{padding:1.2rem}
+  .confirm .row{flex-wrap:wrap}
+  .confirm .row .btn{flex:1 1 120px;min-height:44px}
+}
